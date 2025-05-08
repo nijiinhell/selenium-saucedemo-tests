@@ -21,5 +21,15 @@ public class InventoryPage {
     public boolean isLoaded() {
         return driver.findElement(inventoryContainer).isDisplayed();
     }
+    
+    // Add the first product on the page to the cart
+    public void addFirstItemToCart() {
+        driver.findElement(By.cssSelector(".inventory_item button")).click();
+    }
+
+    // Navigate to the cart page
+    public void goToCart() {
+        driver.findElement(By.className("shopping_cart_link")).click();
+    }
 }
 

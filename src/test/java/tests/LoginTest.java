@@ -62,3 +62,21 @@ public class LoginTest {
     // Check if the error message is displayed
        assertTrue(loginPage.isLoginErrorVisible(), "Login failed as expected — error message is displayed.");
     }
+
+    @Test
+    public void testAddItemToCart() {
+    // Log in first
+      LoginPage loginPage = new LoginPage(driver);
+      loginPage.login("standard_user", "secret_sauce");
+
+    // On the inventory page, add the first product to the cart
+      InventoryPage inventoryPage = new InventoryPage(driver);
+      inventoryPage.addFirstItemToCart();
+      inventoryPage.goToCart();
+
+    // On the cart page, verify that the item appears
+      CartPage cartPage = new CartPage(driver);
+      assertTrue(cartPage.hasItems(), "Item was successfully added to the cart.");
+}
+
+
