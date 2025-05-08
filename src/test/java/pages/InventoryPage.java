@@ -33,3 +33,23 @@ public class InventoryPage {
     }
 }
 
+
+    // Opens the sidebar menu and clicks the logout link
+    public void logout() {
+      driver.findElement(By.id("react-burger-menu-btn")).click();
+
+    // Wait briefly for the menu to slide open (in real tests, use WebDriverWait)
+      try {
+          Thread.sleep(500); // quick wait just for stability
+      } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+      }
+
+      driver.findElement(By.id("logout_sidebar_link")).click();
+}
+
+    // Clicks on the cart icon to go to the cart page
+    public void goToCart() {
+      driver.findElement(By.className("shopping_cart_link")).click();
+}
+

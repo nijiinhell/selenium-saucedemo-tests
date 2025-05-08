@@ -79,4 +79,31 @@ public class LoginTest {
       assertTrue(cartPage.hasItems(), "Item was successfully added to the cart.");
 }
 
+    @Test
+    public void testLogout() {
+    // Log in first
+      LoginPage loginPage = new LoginPage(driver);
+      loginPage.login("standard_user", "secret_sauce");
+
+    // Log out using the side menu
+      InventoryPage inventoryPage = new InventoryPage(driver);
+      inventoryPage.logout();
+
+    // After logout, we should be back at the login page (check login button visible)
+      assertTrue(driver.findElement(By.id("login-button")).isDisplayed(), "Logout successful — login button is visible.");
+}
+
+    @Test
+    public void testNavigateToCartPage() {
+    // Log in
+      LoginPage loginPage = new LoginPage(driver);
+      loginPage.login("standard_user", "secret_sauce");
+
+      InventoryPage inventoryPage = new InventoryPage(driver);
+      inventoryPage.goToCart();
+
+    // Verify we're on the cart page by checking for the cart title
+    boolean cartTitleVisible = driver.findElement(By.className("title")).getText().equals("Your Cart");
+      assertTrue(cartTitleVisible, "User was navigated to the cart page.");
+}
 
