@@ -1,55 +1,64 @@
 package pages;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+
 /**
- * Represents the inventory (product list) page after login.
- * We use this to confirm that the login was successful.
+ * Represents the product listing page you land on after logging in.
+ * This class lets us interact with items, the cart, and logout actions.
  */
+
 public class InventoryPage {
     private final WebDriver driver;
 
-    // This is the main area that shows up after logging in — if we see this, we're in
+    // The whole product container — we use this to verify we're on the correct page
     private final By inventoryContainer = By.id("inventory_container");
 
     public InventoryPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    // Check if the inventory container is visible — that's how we know login worked
+    // Checks if the inventory page loaded correctly by verifying the main product container
     public boolean isLoaded() {
         return driver.findElement(inventoryContainer).isDisplayed();
     }
-    
-    // Add the first product on the page to the cart
+
+
+
+    // Clicks the "Add to cart" button for the first product on the page
+    // (All products have the same class, so we just grab the first match)
     public void addFirstItemToCart() {
-        driver.findElement(By.cssSelector(".inventory_item button")).click();
+        driver.findElement(By.cssSelector("button.btn_inventory")).click();
     }
 
-    // Navigate to the cart page
+
+    // After adding to cart, this badge should show up with the item count
+    public boolean isCartBadgeVisible() {
+        return driver.findElement(By.className("shopping_cart_badge")).isDisplayed();
+    }
+
+
+    // Opens the hamburger menu and logs the user out by clicking the logout option
+    public void logout() {
+    driver.findElement(By.id("react-burger-menu-btn")).click();
+
+    // Wait for the logout option to become clickable, then click it
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    wait.until(ExpectedConditions.elementToBeClickable(By.id("logout_sidebar_link"))).click();
+
+    // After logout, the login page should load, so we wait for the login button
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-button")));
+}
+
+
+
+    // Clicks the shopping cart icon to go to the cart page
     public void goToCart() {
         driver.findElement(By.className("shopping_cart_link")).click();
     }
-}
-
-
-    // Opens the sidebar menu and clicks the logout link
-    public void logout() {
-      driver.findElement(By.id("react-burger-menu-btn")).click();
-
-    // Wait briefly for the menu to slide open (in real tests, use WebDriverWait)
-      try {
-          Thread.sleep(500); // quick wait just for stability
-      } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
-      }
-
-      driver.findElement(By.id("logout_sidebar_link")).click();
-}
-
-    // Clicks on the cart icon to go to the cart page
-    public void goToCart() {
-      driver.findElement(By.className("shopping_cart_link")).click();
 }
 
