@@ -2,7 +2,9 @@
 
 This project automates testing of [saucedemo.com](https://www.saucedemo.com) using Java, JUnit, and Selenium WebDriver with the Page Object Model.
 
-## ✅ Features
+##  Features
+
+Note: I used Private Window of Google because of security pop-up. When it tests with basic credentials google pop-ups that it's breached password etc. Please consider this teacher.
 
 - Login test (valid and invalid)
 - Add to cart test
@@ -14,14 +16,14 @@ This project automates testing of [saucedemo.com](https://www.saucedemo.com) usi
 - Organized with Page Object Model
 - Tests pass locally via Gradle
 
-## 🏗 Technologies
+## Technologies
 - Java 17
 - Selenium WebDriver
 - JUnit 5
 - WebDriverManager
 - Gradle
 
-## ▶️ Run Locally
+## Run Locally
 ```bash
 gradle test
 
