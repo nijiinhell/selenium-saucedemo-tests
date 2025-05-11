@@ -56,11 +56,15 @@ public class LoginTest {
 
     @Test
     public void testInvalidLogin() {
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.login("wrong_user", "wrong_pass");
+      LoginPage loginPage = new LoginPage(driver);
 
-        assertTrue(loginPage.isLoginErrorVisible(), "Login failed as expected — error message is displayed.");
-    }
+    // Generate random username to simulate unknown login
+      String randomUsername = "user" + System.currentTimeMillis();
+      loginPage.login(randomUsername, "wrong_pass");
+
+      assertTrue(loginPage.isLoginErrorVisible(), "Login failed as expected — error message is displayed.");
+}
+
 
     @Test
     public void testAddItemToCart() {
@@ -103,5 +107,6 @@ public class LoginTest {
         }
     }
 }
+
 
 
